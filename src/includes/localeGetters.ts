@@ -32,10 +32,12 @@ export const getLocaleFromPathname = (pathname: RegExp) => {
   return getFirstMatch(window.location.pathname, pathname);
 };
 
-export const getLocaleFromNavigator = (ssrDefault?: string) => {
+export const getLocaleFromNavigator = (ssrDefault?: string, force:boolean = false) => {
   // istanbul ignore next
   if (typeof window === 'undefined') {
     return ssrDefault || null;
+  } else if(ssrDefault && force){
+	  return ssrDefault;
   }
 
   return window.navigator.language || window.navigator.languages[0];
